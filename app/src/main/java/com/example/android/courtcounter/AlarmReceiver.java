@@ -21,7 +21,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // show toast
-        //Log.i("aayush","aagaya beta");
+        Log.e("MyService","aagaya beta");
         Toast.makeText(context, "Alarm running", Toast.LENGTH_SHORT).show();
 
         showNotification(context);

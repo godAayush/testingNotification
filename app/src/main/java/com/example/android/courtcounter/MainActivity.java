@@ -64,10 +64,14 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (!prefs.getBoolean("firstTime", false)) {
 
-            //Log.i("aayush","1st instance");
+            Log.e("MyService","1st instance");
 
-            createNotificationChannel();
+            //Intent broadStartIntent = new Intent(getApplicationContext(), StartBroadcast.class);
+            //sendBroadcast(broadStartIntent);
 
+            /**
+
+             createNotificationChannel();
             ComponentName receiver = new ComponentName(this, DeviceBootReceiver.class);
             PackageManager pm = this.getPackageManager();
             pm.setComponentEnabledSetting(receiver,
@@ -82,29 +86,44 @@ public class MainActivity extends AppCompatActivity {
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, 17);
-            calendar.set(Calendar.MINUTE, 49);
+            calendar.set(Calendar.HOUR_OF_DAY, 3);
+            calendar.set(Calendar.MINUTE, 31);
             calendar.set(Calendar.SECOND, 0);
 
             manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY, pendingIntent);
+                    1*15*1000, pendingIntent);
+
+            */
+
+
+            // use this to start and trigger a service
+
 
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("firstTime", true);
             editor.apply();
         }
-        Log.i("destroyyyy","create service running "+isMyServiceRunning(AlarmManager.class));
+
+
+        Intent i= new Intent(this, MyService.class);
+        // potentially add data to the intent
+        i.putExtra("KEY1", "Value to be used by the service");
+        startService(i);
+
+
+        //Log.i("destroyyyy","create service running "+isMyServiceRunning(AlarmManager.class));
 
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        Log.i("destroyyyy","post resume service running "+isMyServiceRunning(AlarmManager.class));
+        //Log.i("destroyyyy","post resume service running "+isMyServiceRunning(AlarmManager.class));
     }
 
 
 
+    /**
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -114,12 +133,13 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+     */
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         Log.i("destroyyyy","activity destroyed");
-        Log.i("destroyyyy","service running "+isMyServiceRunning(AlarmManager.class));
+        //Log.i("destroyyyy","service running "+isMyServiceRunning(AlarmManager.class));
     }
 
     private void createNotificationChannel() {
@@ -147,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         scoreTeamB = prefs.getInt("scoreB",0);
         displayForTeamA(scoreTeamA);
         displayForTeamB(scoreTeamB);
-        Log.i("destroyyyy","resume service running "+isMyServiceRunning(AlarmManager.class));
+        //Log.i("destroyyyy","resume service running "+isMyServiceRunning(AlarmManager.class));
     }
 
     @Override
@@ -158,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("scoreA",scoreTeamA);
         editor.putInt("scoreB",scoreTeamB);
         editor.apply();
-        Log.i("destroyyyy","onPause service running "+isMyServiceRunning(AlarmManager.class));
+        //Log.i("destroyyyy","onPause service running "+isMyServiceRunning(AlarmManager.class));
     }
 
     /**
