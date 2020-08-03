@@ -47,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
 
     AlarmManager manager;
 
+    String CHANNEL_ID = "KARATEST";
+
     // Tracks the score for Team A
     int scoreTeamA = 0;
 
     // Tracks the score for Team B
     int scoreTeamB = 0;
-
-    String CHANNEL_ID = "KARATEST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +65,20 @@ public class MainActivity extends AppCompatActivity {
         if (!prefs.getBoolean("firstTime", false)) {
 
             Log.e("MyService","1st instance");
+
+            createNotificationChannel();
+
+            Intent broadIntent = new Intent(this, ServiceBroadcast.class);
+            sendBroadcast(broadIntent);
+
+            /**
+
+            Intent i= new Intent(this, MyService.class);
+            // potentially add data to the intent
+            //i.putExtra("KEY1", "Value to be used by the service");
+            startService(i);
+
+             */
 
             //Intent broadStartIntent = new Intent(getApplicationContext(), StartBroadcast.class);
             //sendBroadcast(broadStartIntent);
@@ -105,10 +119,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        Intent i= new Intent(this, MyService.class);
-        // potentially add data to the intent
-        //i.putExtra("KEY1", "Value to be used by the service");
-        startService(i);
+
 
 
         //Log.i("destroyyyy","create service running "+isMyServiceRunning(AlarmManager.class));

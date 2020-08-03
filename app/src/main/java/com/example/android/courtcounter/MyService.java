@@ -31,9 +31,15 @@ public class MyService extends Service {
     }
 
     @Override
+    public void onStart(Intent intent, int startId) {
+        super.onStart(intent, startId);
+        Log.e(TAG,"service onstart");
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //TODO do something useful
-        Log.e(TAG,"service started");
+        Log.e(TAG,"service started on command");
         createNotificationChannel();
         Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarmIntent, 0);
@@ -42,12 +48,25 @@ public class MyService extends Service {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 31);
+        int hr1 = calendar.get(Calendar.HOUR_OF_DAY);
+        int min1 = calendar.get(Calendar.MINUTE); //doesn't work for time 11:58:00-11:59:59 pm
+        if (min1 >= 58)
+        {
+            min1 = 0;
+            if(hr1==23)
+                hr1 = 0;
+            else
+                hr1 += 1;
+        }
+        else
+            min1 = (min1/2)*2 + 2;
+        Log.e(TAG,"hr "+hr1+" min "+min1);
+        calendar.set(Calendar.HOUR_OF_DAY, hr1);
+        calendar.set(Calendar.MINUTE, min1);
         calendar.set(Calendar.SECOND, 0);
 
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                90*1000, pendingIntent);
+                2*60*1000, pendingIntent); //here really speaking, the time period is irrelevant as service is destroyed by that time
         return Service.START_NOT_STICKY;
     }
 
