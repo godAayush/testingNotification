@@ -42,12 +42,12 @@ public class MyService extends Service {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 5);
-        calendar.set(Calendar.MINUTE, 56);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 31);
         calendar.set(Calendar.SECOND, 0);
 
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                2*60*1000, pendingIntent);
+                90*1000, pendingIntent);
         return Service.START_NOT_STICKY;
     }
 

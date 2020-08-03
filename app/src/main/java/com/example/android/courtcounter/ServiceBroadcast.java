@@ -13,10 +13,15 @@ public class ServiceBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.e("MyService","broadcast received");
+
+        /**
         Intent i= new Intent(context, MyService.class);
         // potentially add data to the intent
         i.putExtra("KEY1", "Value to be used by the service");
         context.startService(i);
+         */
+
+        Util.scheduleJob(context);
         Log.e("MyService","end of broadcast reciever");
     }
 }

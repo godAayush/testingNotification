@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent i= new Intent(this, MyService.class);
         // potentially add data to the intent
-        i.putExtra("KEY1", "Value to be used by the service");
+        //i.putExtra("KEY1", "Value to be used by the service");
         startService(i);
 
 
