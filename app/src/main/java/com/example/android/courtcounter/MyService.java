@@ -101,8 +101,11 @@ public class MyService extends JobService {
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
         Log.e(TAG,"2nd service task removed");
+        /**
         Intent broadIntent = new Intent(getApplicationContext(), MainServiceBroadcast.class);
         sendBroadcast(broadIntent);
+         */
+        stopSelf();
     }
 
     @Override
