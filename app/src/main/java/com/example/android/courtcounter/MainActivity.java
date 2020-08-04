@@ -82,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
             startService(i);
 
 
+            /**
+            Intent broadIntent = new Intent(getApplicationContext(), MainServiceBroadcast.class);
+            sendBroadcast(broadIntent);
+             */
+
+
 
             //Intent broadStartIntent = new Intent(getApplicationContext(), StartBroadcast.class);
             //sendBroadcast(broadStartIntent);
