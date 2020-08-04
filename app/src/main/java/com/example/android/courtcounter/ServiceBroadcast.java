@@ -10,9 +10,10 @@ import android.os.IBinder;
 import android.util.Log;
 
 public class ServiceBroadcast extends BroadcastReceiver {
+    String TAG = ServiceBroadcast.class.getSimpleName();
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e("MyService","broadcast received");
+        Log.e(TAG,"broadcast received");
 
         /**
         Intent i= new Intent(context, MyService.class);
@@ -22,6 +23,6 @@ public class ServiceBroadcast extends BroadcastReceiver {
          */
 
         Util.scheduleJob(context);
-        Log.e("MyService","end of broadcast reciever");
+        Log.e(TAG,"end of broadcast reciever");
     }
 }

@@ -14,7 +14,7 @@ public class Util {
 
     public static void scheduleJob(Context context) {
         Log.e(TAG,"Util received");
-        ComponentName serviceComponent = new ComponentName(context, TestJobService.class);
+        ComponentName serviceComponent = new ComponentName(context, MyService.class);
         JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
 
         Calendar calendar = Calendar.getInstance();
@@ -39,8 +39,11 @@ public class Util {
         Calendar currcal = Calendar.getInstance();
         currcal.setTimeInMillis(System.currentTimeMillis());
 
-        builder.setMinimumLatency(calendar.getTimeInMillis()-currcal.getTimeInMillis()); // wait at least
-        builder.setOverrideDeadline(calendar.getTimeInMillis()-currcal.getTimeInMillis()+2*1000); // maximum delay
+        builder.setMinimumLatency(calendar.getTimeInMillis()-currcal.getTimeInMillis()-2000); // wait at least
+        builder.setOverrideDeadline(calendar.getTimeInMillis()-currcal.getTimeInMillis()-1000); // maximum delay
+
+        //builder.setMinimumLatency(500); // wait at least
+        //builder.setOverrideDeadline(1000); // maximum delay
         Log.e(TAG,"Util param set");
         //builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED); // require unmetered network
         //builder.setRequiresDeviceIdle(true); // device should be idle

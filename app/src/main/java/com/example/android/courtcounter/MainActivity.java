@@ -68,17 +68,20 @@ public class MainActivity extends AppCompatActivity {
 
             createNotificationChannel();
 
-            Intent broadIntent = new Intent(this, ServiceBroadcast.class);
-            sendBroadcast(broadIntent);
 
             /**
+            Intent broadIntent = new Intent(this, ServiceBroadcast.class);
+            sendBroadcast(broadIntent);
+             */
+
+
 
             Intent i= new Intent(this, MyService.class);
             // potentially add data to the intent
             //i.putExtra("KEY1", "Value to be used by the service");
             startService(i);
 
-             */
+
 
             //Intent broadStartIntent = new Intent(getApplicationContext(), StartBroadcast.class);
             //sendBroadcast(broadStartIntent);

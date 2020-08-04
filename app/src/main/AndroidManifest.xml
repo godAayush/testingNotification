@@ -48,6 +48,8 @@
 
         <receiver android:name=".ServiceBroadcast"/>
 
+        <receiver android:name=".MainServiceBroadcast"/>
+
         <service
             android:name="MyService"
             android:permission="android.permission.BIND_JOB_SERVICE"

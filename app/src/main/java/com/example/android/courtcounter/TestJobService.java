@@ -39,30 +39,28 @@ public class TestJobService extends JobService {
         showNotification(getApplicationContext());
 
 
-        //Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
 
 
-
-
-
-        //manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-        //        2*60*1000, pendingIntent); //here really speaking, the time period is irrelevant as service is destroyed by that time
-
-
-
+        /**
 
         Intent broadIntent = new Intent(getApplicationContext(), ServiceBroadcast.class);
         sendBroadcast(broadIntent);
+         */
+
+
+        //MyService.scheduleJob();
 
 
 
         Log.e(TAG,"end of onStartJob");
-        return true;
+        return false;  //AAYUSH CHANGED NOTICE
     }
 
     @Override
     public boolean onStopJob(JobParameters params) {
         Log.e(TAG," onstopjob");
+        Intent broadIntent = new Intent(getApplicationContext(), MainServiceBroadcast.class);
+        sendBroadcast(broadIntent);
         return true;
     }
 
@@ -71,14 +69,16 @@ public class TestJobService extends JobService {
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
         Log.e(TAG,"service task removed");
-        Intent broadIntent = new Intent(getApplicationContext(), ServiceBroadcast.class);
-        sendBroadcast(broadIntent);
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(TAG,"service destroyed");
+        Log.e(TAG,"service destroy starts");
+        Intent broadIntent = new Intent(getApplicationContext(), MainServiceBroadcast.class);
+        sendBroadcast(broadIntent);
+        Log.e(TAG,"service destroyed end");
         //Intent broadIntent = new Intent(getApplicationContext(), ServiceBroadcast.class);
         //sendBroadcast(broadIntent);
     }
